@@ -13,6 +13,8 @@ const translations = {
     }
 }
 
+const langs = ["en", "ro", "de"]
+
 if (!localStorage.getItem("lang")){
     let userLang = navigator.language
     if (userLang.includes("ro")){
@@ -29,6 +31,8 @@ changeLang(localStorage.getItem("lang"))
 function changeLang(lang){
     var title = document.getElementById("title")
     var desc = document.getElementById("desc")
+    var select = document.getElementById("lang")
+    select.selectedIndex = langs.indexOf(lang)
     localStorage.setItem("lang", lang)
     let userLang = lang
     title.innerHTML = translations[userLang].title
