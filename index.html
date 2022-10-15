@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script defer src="translations.js"></script>
+    <title>"David" Measuring Unit</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap');
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        body, html{
+            height: 100vh;
+            width: 100vw;
+            background-color: rgb(35,35,35);
+            overflow: hidden;
+        }
+        body{
+            display: flex;
+            flex-direction: column;
+        }
+        h1, p{
+            color: white;
+            font-family: 'Source Sans Pro', sans-serif;
+            text-align:center;
+            margin: 1rem;
+        }
+        canvas{
+            /* height: 75% !important; */
+            margin-left: 10rem;
+            margin-right: 10rem;
+        }
+        select{
+            width:15%;
+            margin:auto;
+            background-color:gray;
+            border: gray 1px;
+            border-radius: 20px;
+            padding:.5rem;
+            color:white;
+        }
+    </style>
+</head>
+<body>
+    <h1 id="title">The "David" Measuring Unit</h1>
+    <p id="desc">following it's history since July 2022</p>
+    <canvas id="chart"></canvas>
+    <select id="lang" onchange="changeLang(this.options[this.selectedIndex].id)">
+        <option selected id="en">English</option>
+        <option id="ro">Română</option>
+        <option id="de">Deutsch</option>
+    </select>
+    <script>
+        const actData = fetch("/info.json").then((resp)=>{
+            resp.json().then(val=>{
+                var current = val["current"]
+                var history = val["history"]
+                var labels = []
+                var dataNr = []
+                for (i in history){
+                    labels.push(history[i][0])
+                    dataNr.push(history[i][1])
+                }
+                labels.push(current[0])
+                dataNr.push(current[1])
+                const data = {
+                    labels: labels,
+                    datasets: [{
+                        label: "David",
+                        backgroundColor: 'rgb(0, 102, 204)',
+                        borderColor: 'rgb(0, 102, 204)',
+                        data: dataNr
+                    }]
+                }
+                const config = {
+                    type: "line",
+                    data: data,
+                    options: {}
+                }
+
+                const chart = new Chart(
+                    document.getElementById("chart"),
+                    config
+                )
+            })
+        })
+    </script>
+</body>
+</html>
