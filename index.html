@@ -19,7 +19,7 @@
             height: 100vh;
             width: 100vw;
             background-color: rgb(35,35,35);
-            overflow: hidden;
+            /* overflow: hidden; */
         }
         body{
             display: flex;
@@ -33,20 +33,29 @@
         }
         canvas{
             /* height: 75% !important; */
-            margin-left: 10rem;
+            margin-left: 9rem;
             margin-right: 10rem;
             max-height: 89vh;
             transition: .25s margin;
         }
-        select{
+        select, button{
             width:15%;
-            margin:auto;
             background-color:gray;
             border: gray 1px;
             border-radius: 20px;
             padding:.5rem;
+            margin-right: .5rem;
             color:white;
             transition: .25s width;
+        }
+        button{
+            margin-left:.5rem;
+            width:100%;
+        }
+        #btns{
+            display:flex;
+            flex-direction: row;
+            margin:auto;
         }
     </style>
 </head>
@@ -54,21 +63,31 @@
     <h1 id="title">The "David" Measuring Unit</h1>
     <p id="desc">following it's history since July 2022</p>
     <canvas id="chart"></canvas>
-    <select id="lang" onchange="changeLang(this.options[this.selectedIndex].id)">
-        <option selected id="en">English</option>
-        <option id="ro">Română</option>
-        <option id="de">Deutsch</option>
-    </select>
+    <div id="btns">
+        <select id="lang" onchange="changeLang(this.options[this.selectedIndex].id)">
+
+        </select>
+        <button onclick="window.location.reload()">Refresh</button>
+    </div>
     <script>
         const actData = fetch("info.json").then((resp)=>{
             resp.json().then(val=>{
                 var current = val["current"]
                 var history = val["history"]
+                var cmp = val["comparison"]
+                var radu = cmp["radu"]
+                var biencutza = cmp["biencutza"]
                 var labels = []
                 var dataNr = []
+                var raduDataNr = []
+                var biencutzaDataNr = []
                 for (i in history){
                     labels.push(history[i][0])
                     dataNr.push(history[i][1])
+                }
+                for (i in radu){
+                    raduDataNr.push(radu[i])
+                    biencutzaDataNr.push(biencutza[i])
                 }
                 labels.push(current[0])
                 dataNr.push(current[1])
@@ -78,7 +97,22 @@
                         label: "David",
                         backgroundColor: 'rgb(0, 102, 204)',
                         borderColor: 'rgb(0, 102, 204)',
+                        tension: 0.1,
                         data: dataNr
+                    },
+                    {
+                        label: "Rădu",
+                        backgroundColor: "rgb(0, 153, 51)",
+                        borderColor: "rgb(0, 153, 51)",
+                        tension: 0.1,
+                        data: raduDataNr
+                    },
+                    {
+                        label: "Biencutza",
+                        backgroundColor: "rgb(204, 0, 0)",
+                        borderColor: "rgb(204, 0, 0)",
+                        tension: 0.1,
+                        data: biencutzaDataNr
                     }]
                 }
                 const config = {

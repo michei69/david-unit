@@ -1,4 +1,7 @@
-# "David" Measuring Unit
+## **"David" Measuring Unit**
+*now available in **14** languages!*
+
+---
 !!! don't take this seriously !!!
 
 it's one of those projects that i'm making for the fun of it
@@ -6,7 +9,7 @@ it's one of those projects that i'm making for the fun of it
 you may not get the joke so just ignore this repo
 
 ---
-## History
+### **History**
 the David measuring unit started being used all the way back in july 2022
 
 it was about 1.05m or 3.4ft at that time
