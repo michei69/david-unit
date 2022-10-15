@@ -55,7 +55,7 @@
         <option id="de">Deutsch</option>
     </select>
     <script>
-        const actData = fetch("/info.json").then((resp)=>{
+        const actData = fetch("info.json").then((resp)=>{
             resp.json().then(val=>{
                 var current = val["current"]
                 var history = val["history"]
