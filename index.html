@@ -77,10 +77,12 @@
                 var cmp = val["comparison"]
                 var radu = cmp["radu"]
                 var biencutza = cmp["biencutza"]
+                var honi = cmp["honi"]
                 var labels = []
                 var dataNr = []
                 var raduDataNr = []
                 var biencutzaDataNr = []
+                var honiDataNr = []
                 for (i in history){
                     labels.push(history[i][0])
                     dataNr.push(history[i][1])
@@ -88,6 +90,7 @@
                 for (i in radu){
                     raduDataNr.push(radu[i])
                     biencutzaDataNr.push(biencutza[i])
+                    honiDataNr.push(honi[i])
                 }
                 labels.push(current[0])
                 dataNr.push(current[1])
@@ -113,6 +116,13 @@
                         borderColor: "rgb(204, 0, 0)",
                         tension: 0.1,
                         data: biencutzaDataNr
+                    },
+                    {
+                        label: "Honi",
+                        backgroundColor: "rgb(255, 204, 0)",
+                        borderColor: "rgb(255, 204, 0)",
+                        tension: 0.1,
+                        data: honiDataNr
                     }]
                 }
                 const config = {
